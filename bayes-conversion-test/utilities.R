@@ -198,7 +198,8 @@ plot_post_beta <- function(
       hoverinfo = 'none',
       showlegend = FALSE
     ) %>% layout(
-      title = 'Distribution of conversions A and B',
+      title = 'AとBのコンバージョン率の分布',
+      #title = 'Distribution of conversions A and B',
       title = list(font = 14),
       xaxis = list(range = xlim, showgrid = FALSE, tickformat = '.1%', fixedrange = TRUE),
       yaxis = list(showline = FALSE, showticklabels = FALSE, showgrid = FALSE, fixedrange = TRUE),
@@ -241,7 +242,8 @@ plot_sample_density <- function(
       hoverinfo = 'none',
       showlegend = FALSE
     ) %>% layout(
-      title = 'Approximate distribution of difference of conversions B - A',
+      title = 'コンバージョン率の差分(B - A)の近似分布',
+      #title = 'Approximate distribution of difference of conversions B - A',
       title = list(font = 14),
       xaxis = list(showgrid = FALSE, tickformat = '.1%', fixedrange = TRUE),
       yaxis = list(showline = FALSE, showticklabels = FALSE, showgrid = FALSE, fixedrange = TRUE),

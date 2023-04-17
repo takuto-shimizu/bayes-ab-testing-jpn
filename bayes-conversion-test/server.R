@@ -68,39 +68,42 @@ shinyServer(function(input, output) {
     }
     output$prob <- renderText({
       sprintf(
-        'Probability that B is better than A: <b>\n%.1f%%</b>.',
+        #'Probability that B is better than A: <b>\n%.1f%%</b>.',
+        '          AよりBの方が優れている確率: <b>\n%.3f%%</b>.',
         prob_B_beats_A(alpha_A, beta_A, alpha_B, beta_B)*100
       )
     })
     output$exp_loss_B <- renderText({
       sprintf(
-        'Expected loss in conversion if B is actually worse: <b>\n%.2g%%</b>.',
-        expected_loss_B_over_A(alpha_A, beta_A, alpha_B, beta_B)*100
+        #'Expected loss in conversion if B is actually worse: <b>\n%.2g%%</b>.',
+        '   実際にはBの方が悪い場合の期待損失: <b>\n%.3g%%</b>.',
+        -100*expected_loss_B_over_A(alpha_A, beta_A, alpha_B, beta_B)
       )
     })
     output$exp_loss_A <- renderText({
       sprintf(
-        'Expected uplift in conversion if B is actually better: <b>\n%.2g%%</b>.',
-        expected_loss_B_over_A(alpha_B, beta_B, alpha_A, beta_A)*100
+        #'Expected uplift in conversion if B is actually better: <b>\n%.2g%%</b>.',
+        '実際にBの方が優れていた場合の期待利得: <b>\n%.3g%%</b>.',
+        100*expected_loss_B_over_A(alpha_B, beta_B, alpha_A, beta_A)
       )
     })
     output$table <- renderTable({
       tab <- data.frame(
-        metric = c('sample size', 'conversion', '95% HDI'),
+        metric = c('サンプルサイズ', 'コンバージョン数', '95% HDI'),
         A = c(
           sprintf('\n%.d', sample_A),
-          sprintf('\n%.3g%%', conv_A*100),
-          sprintf('[ %.3g%%, \n%.3g%% ]', hdi_A[1]*100, hdi_A[2]*100)
+          sprintf('\n%.4g%%', conv_A*100),
+          sprintf('[ %.4g%%, \n%.4g%% ]', hdi_A[1]*100, hdi_A[2]*100)
         ),
         B = c(
           sprintf('\n%.d', sample_B),
-          sprintf('\n%.3g%%', conv_B*100),
-          sprintf('[ %.3g%%, \n%.3g%% ]', hdi_B[1]*100, hdi_B[2]*100)
+          sprintf('\n%.4g%%', conv_B*100),
+          sprintf('[ %.4g%%, \n%.4g%% ]', hdi_B[1]*100, hdi_B[2]*100)
         ),
         BA = c(
           sprintf(' '),
-          sprintf('\n%.3g%%', conv_B*100 - conv_A*100),
-          sprintf('[ %.3g%%, \n%.3g%% ]', hdi_diff[1]*100, hdi_diff[2]*100)
+          sprintf('\n%.4g%%', conv_B*100 - conv_A*100),
+          sprintf('[ %.4g%%, \n%.4g%% ]', hdi_diff[1]*100, hdi_diff[2]*100)
         )
       )
       colnames(tab) <- c(

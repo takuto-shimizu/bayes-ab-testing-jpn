@@ -2,53 +2,59 @@
 
 library(shiny)
 library(plotly)
+library(shinythemes)
 
 shinyUI(
-  fluidPage(
-    titlePanel('Bayesian A/B test for conversion'),
+  #tagList(shinythemes::themeSelector(), ##こちらを追加
+  #theme = shinytheme("cerulean"), ##ここを追加
+  
+  navbarPage(
+    #titlePanel('ベイジアン A/B テスト (CV版)'),
+    'ベイジアン A/B テスト (CV版)',
+    theme = shinytheme("sandstone"), ##ここを追加
     sidebarLayout(
       sidebarPanel(
         numericInput(
           'success_A',
-          'successes A:',
+          'Aの成功回数:',
           min = 0,
-          max = 1e6,
+          max = 1e10,
           value = 200
         ),
         numericInput(
           'total_A',
-          'total A:',
+          'Aの試行回数:',
           min = 0,
-          max = 1e6,
+          max = 1e10,
           value = 1000
         ),
         numericInput(
           'success_B',
-          'successes B:',
+          'Bの成功回数:',
           min = 0,
-          max = 1e6,
+          max = 1e10,
           value = 230
         ),
         numericInput(
           'total_B',
-          'total B:',
+          'Bの試行回数:',
           min = 0,
-          max = 1e6,
+          max = 1e10,
           value = 1000
         ),
         textInput(
           'name_A',
-          'name A:',
-          value = 'control'
+          'Aの名前:',
+          value = '旧パターン'
         ),
         textInput(
           'name_B',
-          'name B:',
-          value = 'test'
+          'Bの名前:',
+          value = '新パターン'
         ),
         actionButton(
           'button',
-          'Calculate'
+          '計算'
         ),
         hr(),
         tags$div(
@@ -59,10 +65,10 @@ shinyUI(
           # ),
           tags$br(),
           tags$a(
-            href = 'https://github.com/Vidogreg/bayes-ab-testing',
+            href = 'https://github.com/takuto-shimizu/bayes-ab-testing-jpn',
             'Get the code here'
           ),
-          tags$p('support: vidogreg@gmail.com')
+          #tags$p('support: vidogreg@gmail.com')
         )
       ),
       mainPanel(
@@ -71,9 +77,9 @@ shinyUI(
         htmlOutput('exp_loss_A'),
         htmlOutput('exp_loss_B'),
         hr(),
-        plotlyOutput('posterior_plot_B_minus_A', width = '590', height = '260px'),
+        plotlyOutput('posterior_plot_B_minus_A', width = '590', height = '300px'),
         hr(),
-        plotlyOutput('posterior_plot', width = '590px', height = '260px')
+        plotlyOutput('posterior_plot', width = '590px', height = '300px')
       )
     )
   )
