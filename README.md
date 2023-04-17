@@ -1,6 +1,2 @@
-# bayes-ab-testing
-Calculators for evaluating A/B tests using Bayesian inference
-
-https://vidogreg.shinyapps.io/bayes-conversion-test/
-
-https://vidogreg.shinyapps.io/bayes-arpu-test/
+# bayes-ab-testing (日本語版)
+https://github.com/Vidogreg/bayes-ab-testing の日本語版
